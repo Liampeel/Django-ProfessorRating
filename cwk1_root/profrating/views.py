@@ -106,10 +106,10 @@ def moduleAvgRating(request):
                 response += decimalResponse
                 jsonFinish.append(response)
                 return JsonResponse(jsonFinish, safe=False)
-            return HttpResponse('error')
-        return HttpResponse('error')
+            return HttpResponse('error Invalid request' , status=400)
+        return HttpResponse('error wrong request mothod', status=400)
 
-    return HttpResponse('Not logged in')
+    return HttpResponse('Not logged in', status=400)
 
 
 @csrf_exempt
@@ -155,7 +155,7 @@ def overallAvgRating(request):
             print(response)
         return JsonResponse(jsonFinish, safe=False)
 
-    return HttpResponse('Not logged in')
+    return HttpResponse('Not logged in', status=400)
 
 
 @csrf_exempt
@@ -187,10 +187,10 @@ def postRating(request):
                     RatingData.save()
 
                     return HttpResponse("Posted Rating")
-                return HttpResponse("Not valid post")
-            return HttpResponse('error')
-        return HttpResponse('error')
-    return HttpResponse('Not logged in')
+                return HttpResponse("Not valid post", status=400)
+            return HttpResponse('Not valid post', status=400)
+        return HttpResponse('error wrong request mothod', status=400)
+    return HttpResponse('Not logged in', status=400)
 
 
 @csrf_exempt
@@ -201,7 +201,7 @@ def GetModule(request):
         data = ModuleSerializer(module, many=True).data
         return JsonResponse(data, safe=False)
 
-    return HttpResponse("invalid login")
+    return HttpResponse("invalid login" , status=400)
 
 
 @csrf_exempt
@@ -212,7 +212,7 @@ def GetModuleInstance(request):
         data = ModuleInstanceSerializer(moduleinstance, many=True).data
         return JsonResponse(data, safe=False)
 
-    return HttpResponse("invalid login")
+    return HttpResponse("invalid login", status=400)
 
 
 @csrf_exempt

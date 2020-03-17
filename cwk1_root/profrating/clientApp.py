@@ -8,7 +8,8 @@ def login(s):
     password = input("password ")
     logininfo = {"username": username, "password": password}
 
-    resp = s.post('http://127.0.0.1:8000/profrating/login/', json=logininfo)
+    # resp = s.post('http://127.0.0.1:8000/profrating/login/', json=logininfo)
+    resp = s.post('http://sc16lep.pythonanywhere.com/profrating/login/', json=logininfo)
     if resp.status_code != 200:
         print(str(resp.status_code) + " error")
 
@@ -21,16 +22,18 @@ def register():
     email = input("email ")
     password = input("password ")
     logininfo = {"username": username, "email": email, "password": password}
-    resp = requests.post('http://127.0.0.1:8000/profrating/register/', json=logininfo)
+    # resp = requests.post('http://127.0.0.1:8000/profrating/register/', json=logininfo)
+    resp = requests.post('http://sc16lep.pythonanywhere.com/profrating/register/', json=logininfo)
     if resp.status_code != 200:
         print(str(resp.status_code))
         print('error')
     else:
-        print('registered user')
+        print(resp.text)
 
 
 def logout():
-    resp = requests.post('http://127.0.0.1:8000/profrating/logout/')
+    # resp = requests.post('http://127.0.0.1:8000/profrating/logout/')
+    resp = requests.post('http://sc16lep.pythonanywhere.com/profrating/logout/')
     if resp.status_code != 200:
         print(str(resp.status_code))
         print('error')
@@ -39,7 +42,8 @@ def logout():
 
 
 def module(s):
-    resp = s.get('http://127.0.0.1:8000/profrating/moduleinstance/')
+    # resp = s.get('http://127.0.0.1:8000/profrating/moduleinstance/')
+    resp = s.get('http://sc16lep.pythonanywhere.com/profrating/moduleinstance/')
 
     if resp.status_code != 200:
         print(str(resp.status_code))
@@ -70,7 +74,8 @@ def module(s):
 
 
 def getrating(s):
-    resp = s.get('http://127.0.0.1:8000/profrating/ovrrating/')
+    # resp = s.get('http://127.0.0.1:8000/profrating/ovrrating/')
+    resp = s.get('http://sc16lep.pythonanywhere.com/profrating/ovrrating/')
 
     if resp.status_code != 200:
         print(str(resp.status_code))
@@ -86,7 +91,9 @@ def averageRating(s):
     professor = input("Professor ID: ")
     module = input("Module Code: ")
     send = {"professor": professor, "module": module}
-    resp = s.post('http://127.0.0.1:8000/profrating/modrating/', json=send)
+
+    # resp = s.post('http://127.0.0.1:8000/profrating/modrating/', json=send)
+    resp = s.post('http://sc16lep.pythonanywhere.com/profrating/modrating/', json=send)
     if resp.status_code != 200:
         print(resp.json)
         print("error")
@@ -104,9 +111,10 @@ def postRating(s):
     rating = input("Rating: ")
 
     sendJson = {"professor": professor, "module": module, "year": year, "semester": semester, "rating": rating}
-    resp = s.post('http://127.0.0.1:8000/profrating/postrating/', json=sendJson)
+    # resp = s.post('http://127.0.0.1:8000/profrating/postrating/', json=sendJson)
+    resp = s.post('http://sc16lep.pythonanywhere.com/profrating/postrating/', json=sendJson)
     if resp.status_code != 200:
-        print(str(resp.status_code) + " error")
+        print(str(resp.status_code) + " error submitting rate")
 
     else:
         print(resp.text)
